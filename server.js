@@ -32,7 +32,27 @@ app.get('/info', (req, res) => {
   res.json({ cle1: 'Toto', cle2: 'Titi' });
 });
 
- 
+app.get('/user', (req, res) => {
+  connection.query('SELECT * FROM user', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des utilisateurs :', err);
+      res.status(500).json({ message: 'Erreur serveur' });
+      return;
+    }
+    res.json(results);
+  });
+});
+
+app.get('/Vote', (req, res) => {
+  connection.query('SELECT * FROM Vote', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des votes :', err);
+      res.status(500).json({ message: 'Erreur serveur' });
+      return;
+    }
+    res.json(results);
+  });
+});
 
 app.post('/register', (req, res) => {
 
@@ -50,9 +70,27 @@ connection.query(
   }
 );
 });
- 
+
+app.post('/Vote', (req, res) => {
+
+ connection.query(
+  'INSERT INTO Vote (idUser) VALUES (?)', 
+  [req.body.userId],
+  (err, results) => {
+    if (err) {
+      console.error('Erreur lors de l\'insertion dans la base de données :', err);
+      res.status(500).json({ message: 'Erreur serveur' });
+      return;
+    }
+    console.log('Vote réussie :', results.insertId);
+    res.json({ message: 'Vote pris en compte', idUser: results.insertId });
+  }
+);
+});
+
 
 app.listen(3000, () => {
   let monIp = require("ip").address();
   console.log(`Server running on http://${monIp}:3000`);
 });
+

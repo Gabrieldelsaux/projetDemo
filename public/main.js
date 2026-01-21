@@ -32,6 +32,40 @@ monBouton.addEventListener('click', () => {
       });
 });
 
+window.onload = () => {
+    fetch('/user')
+    .then(response => response.json())
+    .then(users => {
+        const usersList = document.getElementById('usersList');
+        users.forEach(user => {
+            //création d'un input select option avec id en value et login en texte  
+            const option = document.createElement('option');
+            option.value = user.id;
+            option.text = user.login;
+            usersList.appendChild(option);  
+            
+        });
+    });
+}
+
+const userSelectedButton = document.getElementById('userSelectedButton');
+
+userSelectedButton.addEventListener('click', () => {
+    const userList = document.getElementById('usersList');
+    const selectedUserId = userList.value;
+    fetch('/Vote', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId: selectedUserId })     
+    }).then(response => response.text())
+      .then(data => {
+          alert(data);
+      });
+    alert('Utilisateur sélectionné ID : ' + selectedUserId);
+});
+
 monBouton4.addEventListener('click', () => {
     fetch('/register', {
         method: 'POST',
