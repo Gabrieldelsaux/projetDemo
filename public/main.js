@@ -6,7 +6,8 @@ const monBouton2 = document.getElementById('monBouton2');
 const monInput3 = document.getElementById('monInput3');
 const monInput4 = document.getElementById('monInput4');
 const monBouton4 = document.getElementById('monBouton4');
-
+const monBouton5 = document.getElementById('monBouton5');
+const monInput5 = document.getElementById('monInput5');
 // Ajout d'un écouteur d'événement sur le deuxième bouton
 monBouton2.addEventListener('click', () => {
     fetch('/info').then(
@@ -77,4 +78,21 @@ monBouton4.addEventListener('click', () => {
       .then(data => {
           alert(data);
       });
+});
+
+monBouton5.addEventListener('click', () => {
+    const userList = document.getElementById('usersList');
+    const selectedUserId = userList.value;
+
+    fetch('/VoteCount', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId: selectedUserId })
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        monInput5.innerHTML = "Nombre de votes : " + data.voteCount;
+    });
 });

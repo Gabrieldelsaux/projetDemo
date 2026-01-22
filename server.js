@@ -88,6 +88,22 @@ app.post('/Vote', (req, res) => {
 );
 });
 
+app.post('/VoteCount', (req, res) => {
+ 
+  connection.query(
+  'SELECT user.id, COUNT(Vote.idUser) AS voteCount FROM user LEFT JOIN Vote ON user.id = Vote.idUser WHERE user.id = ? GROUP BY user.id',
+  [req.body.userId],
+  (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération du nombre de votes :', err);
+      res.status(500).json({ message: 'Erreur serveur' });
+      return;
+    }
+    console.log('Nombre de votes récupéré :', results[0].voteCount);
+    res.json({ voteCount: results[0].voteCount });
+  }
+);
+});     
 
 app.listen(3000, () => {
   let monIp = require("ip").address();
