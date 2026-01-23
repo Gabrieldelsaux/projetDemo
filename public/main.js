@@ -6,8 +6,8 @@ const monBouton2 = document.getElementById('monBouton2');
 const monInput3 = document.getElementById('monInput3');
 const monInput4 = document.getElementById('monInput4');
 const monBouton4 = document.getElementById('monBouton4');
-const monBouton5 = document.getElementById('monBouton5');
-const monInput5 = document.getElementById('monInput5');
+
+
 // Ajout d'un écouteur d'événement sur le deuxième bouton
 monBouton2.addEventListener('click', () => {
     fetch('/info').then(
@@ -35,6 +35,7 @@ monBouton.addEventListener('click', () => {
 
 window.onload = () => {
     fetch('/user')
+
     .then(response => response.json())
     .then(users => {
         const usersList = document.getElementById('usersList');
@@ -47,7 +48,9 @@ window.onload = () => {
             
         });
     });
-}
+    voteRN();
+
+};
 
 const userSelectedButton = document.getElementById('userSelectedButton');
 
@@ -80,19 +83,26 @@ monBouton4.addEventListener('click', () => {
       });
 });
 
-monBouton5.addEventListener('click', () => {
-    const userList = document.getElementById('usersList');
-    const selectedUserId = userList.value;
-
+function voteRN(){
+    const usersList = document.getElementById('usersList');
+    const selectedUserId = usersList.value;
     fetch('/VoteCount', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ userId: selectedUserId })
     })
-    .then(response => response.json()) 
-    .then(data => {
-        monInput5.innerHTML = "Nombre de votes : " + data.voteCount;
-    });
-});
+        .then(response => response.json())
+        .then(data => {
+            const result = document.getElementById('resultat');
+            data.forEach(vote => {
+            const tr = document.createElement("tr");
+            result.appendChild(tr);
+            const td = document.createElement("td");
+            td.innerText = vote.login;
+            tr.appendChild(td);
+            const td1 = document.createElement("td");
+            td1.innerText = vote.voteCount;
+            tr.appendChild(td1);
+            
+            
+            
+        });
+    })
+}

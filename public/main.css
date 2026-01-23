@@ -1,0 +1,152 @@
+/* --------- RESET --------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Orbitron", "Segoe UI", Arial, sans-serif;
+}
+
+/* --------- PAGE --------- */
+body {
+  background: radial-gradient(circle at 20% 20%, #0a0f1f, #000);
+  color: #d0e7ff;
+  padding: 40px;
+  text-shadow: 0 0 6px rgba(0,255,255,0.4);
+
+  /* CENTRAGE GLOBAL */
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* centre horizontal */
+  justify-content: flex-start;
+  gap: 30px;
+}
+
+/* --------- TITRE --------- */
+h1 {
+  font-size: 32px;
+  color: #00eaff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 0 12px #00eaff;
+  text-align: center;
+}
+
+/* --------- BLOCS --------- */
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 420px;
+
+  /* centrer les éléments */
+  align-items: center;
+}
+
+/* --------- INPUTS --------- */
+input[type="text"], select {
+  padding: 12px 14px;
+  border-radius: 6px;
+  border: 1px solid #00eaff;
+  background: rgba(0, 20, 40, 0.6);
+  color: #d0e7ff;
+  width: 100%;
+  backdrop-filter: blur(4px);
+  transition: 0.25s;
+  box-shadow: 0 0 8px rgba(0,255,255,0.2);
+}
+
+input[type="text"]:focus, select:focus {
+  border-color: #7df9ff;
+  box-shadow: 0 0 12px #00eaff;
+  outline: none;
+  transform: scale(1.03);
+}
+
+/* --------- BUTTONS --------- */
+input[type="button"] {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #00121f;
+  background: linear-gradient(90deg, #00eaff, #7df9ff);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.25s;
+  box-shadow: 0 0 12px #00eaff;
+  width: 100%;
+  max-width: 260px;
+  text-align: center;
+}
+
+input[type="button"]:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 18px #7df9ff;
+}
+
+/* Variantes néon */
+#monBouton2 {
+  background: linear-gradient(90deg, #ff00e6, #ff7df9);
+  box-shadow: 0 0 12px #ff00e6;
+}
+
+#monBouton4 {
+  background: linear-gradient(90deg, #00ff85, #7dffcf);
+  box-shadow: 0 0 12px #00ff85;
+}
+
+/* --------- RÉPONSE --------- */
+#reponse {
+  padding: 10px 14px;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid #00eaff;
+  border-radius: 6px;
+  min-width: 140px;
+  box-shadow: 0 0 10px rgba(0,255,255,0.3);
+  text-align: center;
+}
+
+/* --------- TABLEAU --------- */
+#monInput5 {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: rgba(0, 20, 40, 0.6);
+  border-radius: 8px;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 18px rgba(0,255,255,0.2);
+}
+
+th, td {
+  padding: 14px;
+  border-bottom: 1px solid rgba(0,255,255,0.2);
+  text-align: center;
+}
+
+th {
+  background: rgba(0,255,255,0.15);
+  font-weight: 700;
+  color: #7df9ff;
+  text-shadow: 0 0 8px #00eaff;
+}
+
+tr:hover {
+  background: rgba(0,255,255,0.08);
+}
+
+/* --------- RESPONSIVE --------- */
+@media (max-width: 600px) {
+  section {
+    max-width: 100%;
+  }
+}
