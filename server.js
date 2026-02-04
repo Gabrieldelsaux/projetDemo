@@ -71,10 +71,13 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/Vote', (req, res) => {
-
+if (req.body.idElecteur===null) {
+  res.status(400).json({ message: 'Connecte toi' });
+  return;
+}
   connection.query(
-    'INSERT INTO Vote (idUser) VALUES (?)',
-    [req.body.userId],
+    'INSERT INTO Vote (idUser, idElecteur) VALUES (?, ?)',
+    [req.body.idUser, req.body.idElecteur],
     (err, results) => {
       if (err) {
         console.error('Erreur lors de l\'insertion dans la base de données :', err);
@@ -97,8 +100,27 @@ app.get('/VoteCount', (req, res) => {
       }
         res.json(results);
     })
-})
+});
 
+app.post('/connexion', (req, res) => {  
+  console.log(req.body);
+  //on récupère le login et le password
+  const { login, password } = req.body;
+  connection.query('SELECT * FROM user WHERE login = ? AND password = ?', [login, password], (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la vérification des identifiants :', err);
+      res.status(500).json({ message: 'Erreur serveur' });
+      return;
+    }
+    if (results.length === 0) {
+      res.status(401).json({ message: 'Identifiants invalides' });
+      return;
+    }
+    // Identifiants valides 
+    //renvoi les information du user
+    res.json({ message: 'Connexion réussie !', user: results[0] });
+  });
+});
 
 
 app.listen(3000, () => {
